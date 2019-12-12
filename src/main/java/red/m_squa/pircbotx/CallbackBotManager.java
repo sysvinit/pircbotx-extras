@@ -81,12 +81,14 @@ public class CallbackBotManager extends MultiBotManager {
         @Override
         public void onSuccess(Void result) {
             log.debug("Bot #" + bot.getBotId() + " finished");
+            super.remove();
             CallbackBotManager.this.onsuccess.success(bot, result);
         }
 
         @Override
         public void onFailure(Throwable t) {
             log.error("Bot exited with Exception", t);
+            super.remove();
             CallbackBotManager.this.onfail.failure(bot, t);
         }
     }
