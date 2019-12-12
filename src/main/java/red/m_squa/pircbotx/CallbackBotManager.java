@@ -59,13 +59,13 @@ public class CallbackBotManager extends MultiBotManager {
     }
 
     @Override
-    protected ListenableFuture<Void> startBot(final PircBotXBot bot) {
+    protected ListenableFuture<Void> startBot(final PircBotX bot) {
         Preconditions.checkNotNull(bot, "Bot cannot be null");
         ListenableFuture<Void> future = botPool.submit(new BotRunner(bot));
 
-        synchronized (runingBotsLock) {
+        synchronized (runningBotsLock) {
             runningBots.put(bot, future);
-            runningBotsNumbers(bot, bot.getBotId());
+            runningBotsNumbers.put(bot, bot.getBotId());
         }
 
         Futures.addCallback(future, new TerminationCallback(bot),
