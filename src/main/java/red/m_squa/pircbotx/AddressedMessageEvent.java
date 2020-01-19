@@ -22,6 +22,12 @@ package red.m_squa.pircbotx;
 import org.pircbotx.hooks.Event;
 import org.pircbotx.hooks.events.MessageEvent;
 
+/**
+ * A message which was sent to a user and a channel which is prefixed with the
+ * bot's nick.
+ *
+ * @author Molly Miller
+ */
 public class AddressedMessageEvent extends MessageEvent {
     private String addressedMessage;
 
@@ -37,6 +43,16 @@ public class AddressedMessageEvent extends MessageEvent {
         this.addressedMessage = msg;
     }
 
+    /**
+     * Get the component of the message following the addressed prefix.
+     * <p>
+     * For example, if there is a bot on a channel with the nick
+     * {@code foobar}, and another user sends a message to a common channel
+     * of {@code foobar: here's a message}, then this method will return
+     * the string "here's a message".
+     *
+     * @returns The remainder of the triggering message after the prefix.
+     */
     public String getAddressedMessage() {
         return this.addressedMessage;
     }

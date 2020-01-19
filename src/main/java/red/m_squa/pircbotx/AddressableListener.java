@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Molly Miller.
+ * Copyright (C) 2019-2020 Molly Miller.
  *
  * This file is part of pircbotx-extras.
  * 
@@ -29,6 +29,12 @@ import org.pircbotx.hooks.Listener;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 
+/**
+ * A ListenerAdapter which additionally supports sending an event when it is
+ * addressed by another user on a channel.
+ *
+ * @author Molly Miller
+ */
 public abstract class AddressableListener extends ListenerAdapter {
     private final Pattern ADDRESS_REGEX = Pattern.compile("^[^,: /]+[,:]\\s+.*$");;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Molly Miller.
+ * Copyright (C) 2019-2020 Molly Miller.
  *
  * This file is part of pircbotx-extras.
  * 
@@ -35,23 +35,56 @@ import org.pircbotx.PircBotX;
  * running a callback upon a bot's termination.
  *
  * Adapted from the MultiBotManager sources.
+ *
+ * @author Molly Miller
  */
 public class CallbackBotManager extends MultiBotManager {
     private static final Logger log = LoggerFactory.getLogger(CallbackBotManager.class);
 
+    /**
+     * A callback which is executed when a bot exits without raising an
+     * exception.
+     *
+     * @author Molly Miller
+     */
     @FunctionalInterface
     public interface SuccessCallback {
+        /**
+         * Success condition handler.
+         *
+         * @param bot The (no longer connected) bot object.
+         * @param result The (void) value returned by the bot.
+         */
         public void success(PircBotX bot, Void result);
     }
 
+    /**
+     * A callback which is executed when a bot exits with an exception.
+     *
+     * @author Molly Miller
+     */
     @FunctionalInterface
     public interface FailureCallback {
+        /**
+         * Failure condition handler.
+         *
+         * @param bot The bot which exited with an exception.
+         * @param t The exception which was thrown by the bot.
+         */
         public void failure(PircBotX bot, Throwable t);
     }
 
     private final FailureCallback onfail;
     private final SuccessCallback onsuccess;
 
+    /**
+     * A bot manager derived from the {@link MultiBotManager} class, which
+     * additionally supports executing user-supplied callbacks when a bot
+     * object exits.
+     *
+     * @param s The callback to be executed upon successful termination.
+     * @param f The callback to be executed upon exceptional termination.
+     */
     public CallbackBotManager(SuccessCallback s, FailureCallback f) {
         super();
         this.onfail = f;
